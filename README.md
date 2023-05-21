@@ -1,3 +1,7 @@
+## This is a repro that uses Javascript
+
+When creating a user the same number case be registered more than once if it has a different format.
+
 ### Steps to reproduce
 
 1. Run `firebase emulators:start --project demo-project`.
