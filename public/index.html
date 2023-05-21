@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="recaptcha-container"></div>
+    <button id="baseNumber">+15555550100</button>
+    <button id="parenthesesNumber">+1(555)5550100</button>
+    <button id="dashesNumber">+1-555-555-0100</button>
+    <script defer type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getAuth, connectAuthEmulator, signInWithPhoneNumber, RecaptchaVerifier } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        
+        const firebaseApp = initializeApp({
+            projectId: "demo-project",
+            apiKey: "some-api-key",
+            authDomain: "demo-project.firebaseapp.com",
+        });
+        const firebaseAuth = getAuth();
+
+        connectAuthEmulator(firebaseAuth, "http://127.0.0.1:9099");
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {}, firebaseAuth);
+        const appVerifier = window.recaptchaVerifier;
+
+        document.getElementById('baseNumber').onclick = () => {
+            console.log("Phone Sign In")
+            signInWithPhoneNumber(firebaseAuth, "+15555550100", appVerifier)
+                .then((confirmationResult) => {
+                    const code = window.prompt("Enter code. Found in the Emulator Terminal");
+                    confirmationResult.confirm(code)
+                    window.location.reload()
+                })
+        }
+
+        document.getElementById('parenthesesNumber').onclick = () => {
+            console.log("Phone Sign In")
+            signInWithPhoneNumber(firebaseAuth, "+1(555)5550100", appVerifier)
+                .then((confirmationResult) => {
+                    const code = window.prompt("Enter code. Found in the Emulator Terminal");
+                    confirmationResult.confirm(code)
+                    window.location.reload()
+                })
+        }
+
+        document.getElementById('dashesNumber').onclick = () => {
+            console.log("Phone Sign In")
+            signInWithPhoneNumber(firebaseAuth, "+1-555-555-0100", appVerifier)
+                .then((confirmationResult) => {
+                    const code = window.prompt("Enter code. Found in the Emulator Terminal");
+                    confirmationResult.confirm(code)
+                    window.location.reload()
+                })
+        }
+    </script>
+</body>
+
+</html>
