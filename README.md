@@ -1,6 +1,6 @@
 ## This is a repro that uses Javascript
 
-When creating a user the same number case be registered more than once if it has a different format.
+Issue: When creating a user, the same phone number can be registered more than once if it has a different format.
 
 ### Steps to reproduce
 
